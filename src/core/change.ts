@@ -25,6 +25,22 @@ export function getChangeScoresDir(root: string, changeName: string): string {
   return join(getChangeDir(root, changeName), "scores");
 }
 
+export function getChangeVerificationDir(root: string, changeName: string): string {
+  return join(getChangeDir(root, changeName), "verification");
+}
+
+export function getChangeVerificationFilePath(
+  root: string,
+  changeName: string,
+  fileName: string,
+): string {
+  return join(getChangeVerificationDir(root, changeName), fileName);
+}
+
+export function getChangeReportPath(root: string, changeName: string, fileName: string): string {
+  return join(getChangeDir(root, changeName), fileName);
+}
+
 export async function readChangeFile(
   root: string,
   changeName: string,
