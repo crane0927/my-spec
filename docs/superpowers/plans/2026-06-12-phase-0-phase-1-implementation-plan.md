@@ -79,7 +79,7 @@
 - Create: `src/cli.ts`
 - Test: `npm run build`
 
-- [ ] **Step 1: 创建 `package.json` 基础脚本与依赖**
+- [x] **Step 1: 创建 `package.json` 基础脚本与依赖**
 
 ```json
 {
@@ -110,7 +110,7 @@
 }
 ```
 
-- [ ] **Step 2: 创建 `tsconfig.json`**
+- [x] **Step 2: 创建 `tsconfig.json`**
 
 ```json
 {
@@ -128,13 +128,13 @@
 }
 ```
 
-- [ ] **Step 3: 创建 `eslint.config.js`**
+- [x] **Step 3: 创建 `eslint.config.js`**
 
 ```js
 export default [];
 ```
 
-- [ ] **Step 4: 创建 `.gitignore`**
+- [x] **Step 4: 创建 `.gitignore`**
 
 ```gitignore
 node_modules
@@ -143,7 +143,7 @@ dist
 coverage
 ```
 
-- [ ] **Step 5: 创建 `src/cli.ts` 最小入口**
+- [x] **Step 5: 创建 `src/cli.ts` 最小入口**
 
 ```ts
 import { cac } from "cac";
@@ -155,12 +155,12 @@ cli.version("0.1.0");
 cli.parse();
 ```
 
-- [ ] **Step 6: 运行构建验证项目骨架**
+- [x] **Step 6: 运行构建验证项目骨架**
 
 Run: `npm run build`
 Expected: TypeScript 编译通过，并生成 `dist/cli.js`
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add package.json tsconfig.json eslint.config.js .gitignore src/cli.ts
@@ -181,7 +181,7 @@ git commit -m "chore(cli): 初始化 myspec 命令行工程骨架"
 - Create: `src/schemas/config.ts`
 - Test: `tests/init.test.ts`
 
-- [ ] **Step 1: 创建统一错误类型**
+- [x] **Step 1: 创建统一错误类型**
 
 ```ts
 export class MyspecError extends Error {
@@ -196,7 +196,7 @@ export class MyspecError extends Error {
 }
 ```
 
-- [ ] **Step 2: 创建文件系统辅助函数**
+- [x] **Step 2: 创建文件系统辅助函数**
 
 ```ts
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -214,7 +214,7 @@ export async function readTextFile(path: string): Promise<string> {
 }
 ```
 
-- [ ] **Step 3: 创建 `meta.json` schema**
+- [x] **Step 3: 创建 `meta.json` schema**
 
 ```ts
 import { z } from "zod";
@@ -230,7 +230,7 @@ export const metaSchema = z.object({
 export type Meta = z.infer<typeof metaSchema>;
 ```
 
-- [ ] **Step 4: 创建 `config.yaml` schema**
+- [x] **Step 4: 创建 `config.yaml` schema**
 
 ```ts
 import { z } from "zod";
@@ -248,7 +248,7 @@ export const configSchema = z.object({
 export type MyspecConfig = z.infer<typeof configSchema>;
 ```
 
-- [ ] **Step 5: 创建配置读取函数**
+- [x] **Step 5: 创建配置读取函数**
 
 ```ts
 import YAML from "yaml";
@@ -261,12 +261,12 @@ export async function loadConfig(path: string) {
 }
 ```
 
-- [ ] **Step 6: 运行类型检查**
+- [x] **Step 6: 运行类型检查**
 
 Run: `npm run typecheck`
 Expected: 所有基础设施和 schema 类型检查通过
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add src/core src/schemas
@@ -283,7 +283,7 @@ git commit -m "feat(core): 建立配置与变更基础设施"
 - Create: `src/templates/defaults.ts`
 - Test: `tests/init.test.ts`
 
-- [ ] **Step 1: 先写 `init` 的失败测试**
+- [x] **Step 1: 先写 `init` 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -302,12 +302,12 @@ describe("myspec init", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/init.test.ts`
 Expected: FAIL，因为 `init` 命令或调用方法尚不存在
 
-- [ ] **Step 3: 实现默认模板与默认配置**
+- [x] **Step 3: 实现默认模板与默认配置**
 
 ```ts
 export const defaultConfig = `project:
@@ -329,7 +329,7 @@ export const templateFiles: Record<string, string> = {
 };
 ```
 
-- [ ] **Step 4: 实现 `init` 命令处理函数**
+- [x] **Step 4: 实现 `init` 命令处理函数**
 
 ```ts
 import { join } from "node:path";
@@ -353,7 +353,7 @@ export async function runInit(cwd: string): Promise<void> {
 }
 ```
 
-- [ ] **Step 5: 在 `src/cli.ts` 注册 `init` 命令**
+- [x] **Step 5: 在 `src/cli.ts` 注册 `init` 命令**
 
 ```ts
 import { runInit } from "./commands/init.js";
@@ -363,12 +363,12 @@ cli.command("init", "Initialize myspec in current project").action(async () => {
 });
 ```
 
-- [ ] **Step 6: 重新运行测试确认通过**
+- [x] **Step 6: 重新运行测试确认通过**
 
 Run: `npm test -- tests/init.test.ts`
 Expected: PASS，`.myspec/config.yaml` 与基础模板目录存在
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add src/cli.ts src/commands/init.ts src/templates/defaults.ts tests/init.test.ts
@@ -385,7 +385,7 @@ git commit -m "feat(init): 实现 myspec 初始化命令"
 - Create: `tests/propose.test.ts`
 - Test: `tests/propose.test.ts`
 
-- [ ] **Step 1: 先写 `propose` 的失败测试**
+- [x] **Step 1: 先写 `propose` 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -406,12 +406,12 @@ describe("myspec propose", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/propose.test.ts`
 Expected: FAIL，因为 `propose` 尚未实现
 
-- [ ] **Step 3: 实现 `propose` 命令处理函数**
+- [x] **Step 3: 实现 `propose` 命令处理函数**
 
 ```ts
 import { join } from "node:path";
@@ -441,7 +441,7 @@ export async function runPropose(
 }
 ```
 
-- [ ] **Step 4: 在 `src/cli.ts` 注册 `propose`**
+- [x] **Step 4: 在 `src/cli.ts` 注册 `propose`**
 
 ```ts
 import { runPropose } from "./commands/propose.js";
@@ -454,12 +454,12 @@ cli
   });
 ```
 
-- [ ] **Step 5: 运行测试确认通过**
+- [x] **Step 5: 运行测试确认通过**
 
 Run: `npm test -- tests/propose.test.ts`
 Expected: PASS，change 目录、`meta.json`、`proposal.md` 存在
 
-- [ ] **Step 6: 提交本任务**
+- [x] **Step 6: 提交本任务**
 
 ```bash
 git add src/commands/propose.ts src/cli.ts tests/propose.test.ts
@@ -476,7 +476,7 @@ git commit -m "feat(propose): 实现 change 创建命令"
 - Create: `tests/clarify.test.ts`
 - Test: `tests/clarify.test.ts`
 
-- [ ] **Step 1: 先写 `clarify --skip` 的失败测试**
+- [x] **Step 1: 先写 `clarify --skip` 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -502,12 +502,12 @@ describe("myspec clarify", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/clarify.test.ts`
 Expected: FAIL，因为 `clarify` 尚未实现
 
-- [ ] **Step 3: 实现 `clarify` 命令**
+- [x] **Step 3: 实现 `clarify` 命令**
 
 ```ts
 import { join } from "node:path";
@@ -552,7 +552,7 @@ Skipped clarification for low-risk change.
 }
 ```
 
-- [ ] **Step 4: 在 `src/cli.ts` 注册 `clarify`**
+- [x] **Step 4: 在 `src/cli.ts` 注册 `clarify`**
 
 ```ts
 import { runClarify } from "./commands/clarify.js";
@@ -565,12 +565,12 @@ cli
   });
 ```
 
-- [ ] **Step 5: 运行测试确认通过**
+- [x] **Step 5: 运行测试确认通过**
 
 Run: `npm test -- tests/clarify.test.ts`
 Expected: PASS，占位版 `clarification.md` 被正确生成
 
-- [ ] **Step 6: 提交本任务**
+- [x] **Step 6: 提交本任务**
 
 ```bash
 git add src/commands/clarify.ts src/cli.ts tests/clarify.test.ts
@@ -587,7 +587,7 @@ git commit -m "feat(clarify): 实现澄清阶段与跳过占位文档"
 - Create: `tests/draft.test.ts`
 - Test: `tests/draft.test.ts`
 
-- [ ] **Step 1: 先写 `draft` 的失败测试**
+- [x] **Step 1: 先写 `draft` 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -610,12 +610,12 @@ describe("myspec draft", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/draft.test.ts`
 Expected: FAIL，因为 `draft` 尚未实现
 
-- [ ] **Step 3: 实现 `draft` 批量文档生成**
+- [x] **Step 3: 实现 `draft` 批量文档生成**
 
 ```ts
 import { join } from "node:path";
@@ -639,7 +639,7 @@ export async function runDraft(cwd: string, changeName: string): Promise<void> {
 }
 ```
 
-- [ ] **Step 4: 在 `src/cli.ts` 注册 `draft`**
+- [x] **Step 4: 在 `src/cli.ts` 注册 `draft`**
 
 ```ts
 import { runDraft } from "./commands/draft.js";
@@ -649,12 +649,12 @@ cli.command("draft <change>", "Generate change artifacts").action(async (change)
 });
 ```
 
-- [ ] **Step 5: 运行测试确认通过**
+- [x] **Step 5: 运行测试确认通过**
 
 Run: `npm test -- tests/draft.test.ts`
 Expected: PASS，核心文档与 JSON 工件全部生成
 
-- [ ] **Step 6: 提交本任务**
+- [x] **Step 6: 提交本任务**
 
 ```bash
 git add src/commands/draft.ts src/cli.ts tests/draft.test.ts
@@ -672,7 +672,7 @@ git commit -m "feat(draft): 实现规格文档骨架生成"
 - Create: `tests/status.test.ts`
 - Create: `tests/list.test.ts`
 
-- [ ] **Step 1: 先写 `status` 的失败测试**
+- [x] **Step 1: 先写 `status` 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -685,7 +685,7 @@ describe("myspec status", () => {
 });
 ```
 
-- [ ] **Step 2: 先写 `list` 的失败测试**
+- [x] **Step 2: 先写 `list` 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -698,12 +698,12 @@ describe("myspec list", () => {
 });
 ```
 
-- [ ] **Step 3: 运行测试确认当前为空实现**
+- [x] **Step 3: 运行测试确认当前为空实现**
 
 Run: `npm test -- tests/status.test.ts tests/list.test.ts`
 Expected: FAIL，因为命令实现缺失
 
-- [ ] **Step 4: 实现 `status`**
+- [x] **Step 4: 实现 `status`**
 
 ```ts
 export async function runStatus(): Promise<string> {
@@ -711,7 +711,7 @@ export async function runStatus(): Promise<string> {
 }
 ```
 
-- [ ] **Step 5: 实现 `list`**
+- [x] **Step 5: 实现 `list`**
 
 ```ts
 export async function runList(): Promise<string> {
@@ -719,7 +719,7 @@ export async function runList(): Promise<string> {
 }
 ```
 
-- [ ] **Step 6: 在 `src/cli.ts` 注册两个命令**
+- [x] **Step 6: 在 `src/cli.ts` 注册两个命令**
 
 ```ts
 import { runStatus } from "./commands/status.js";
@@ -734,17 +734,17 @@ cli.command("list", "List all changes").action(async () => {
 });
 ```
 
-- [ ] **Step 7: 运行测试确认通过**
+- [x] **Step 7: 运行测试确认通过**
 
 Run: `npm test -- tests/status.test.ts tests/list.test.ts`
 Expected: PASS，能输出当前缺失项、下一步建议和 change 列表
 
-- [ ] **Step 8: 运行 Phase 0-1 全量测试**
+- [x] **Step 8: 运行 Phase 0-1 全量测试**
 
 Run: `npm test`
 Expected: PASS，`init`、`propose`、`clarify`、`draft`、`status`、`list` 相关测试全部通过
 
-- [ ] **Step 9: 提交本任务**
+- [x] **Step 9: 提交本任务**
 
 ```bash
 git add src/commands/status.ts src/commands/list.ts src/cli.ts tests/status.test.ts tests/list.test.ts
