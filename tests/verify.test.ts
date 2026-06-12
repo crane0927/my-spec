@@ -9,6 +9,7 @@ import { runReview } from "../src/commands/review.js";
 import { runVerify } from "../src/commands/verify.js";
 import { configSchema } from "../src/schemas/config.js";
 import { metaSchema } from "../src/schemas/meta.js";
+import { buildEvidence } from "../src/verify/evidence-builder.js";
 import { buildVerification } from "../src/verify/verification-builder.js";
 
 describe("phase 3 schemas", () => {
@@ -43,6 +44,35 @@ describe("myspec verify", () => {
 
     expect(verification.status).toBe("failed");
     expect(verification.nextStep).toBe("返回 apply 修复");
+  });
+
+  it("supports manual-check and risk-acceptance evidence items", () => {
+    const evidence = buildEvidence("add-login", [], {
+      manualChecks: [{ title: "UI smoke", result: "passed" }],
+      acceptedRisks: [{ title: "No e2e yet", reason: "deferred to next phase" }],
+    });
+
+    expect(evidence.items.some((item) => item.type === "manual-check")).toBe(true);
+    expect(evidence.items.some((item) => item.type === "risk-acceptance")).toBe(true);
+  });
+
+  it("fails verification when command evidence is missing", () => {
+    const verification = buildVerification("add-login", [], {
+      evidenceItems: [
+        {
+          id: "EV-M-1",
+          type: "manual-check",
+          relatedRequirements: [],
+          relatedTasks: [],
+          relatedTestCases: [],
+          payload: { title: "UI smoke", result: "passed" },
+        },
+      ],
+    });
+
+    expect(verification.status).toBe("failed");
+    expect(verification.gates.evidence).toBe("failed");
+    expect(verification.nextStep).toBe("补充 evidence 后重新 verify");
   });
 
   it("writes checks, verification and evidence artifacts", async () => {

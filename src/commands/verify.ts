@@ -18,10 +18,11 @@ export async function runVerify(root: string, changeName: string) {
     JSON.parse(await readChangeFile(root, changeName, "traceability.json")),
   );
   const traceabilityResult = checkTraceability(traceability);
+  const evidence = buildEvidence(changeName, checks);
   const verification = buildVerification(changeName, checks, {
     coverageSummary: traceabilityResult.summary,
+    evidenceItems: evidence.items,
   });
-  const evidence = buildEvidence(changeName, checks);
 
   const verificationDir = getChangeVerificationDir(root, changeName);
   await ensureDir(verificationDir);
