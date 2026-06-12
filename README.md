@@ -98,6 +98,13 @@ node dist/cli.js status quick-fix
 
 如果你想先理解目录结构，再开始在自己的项目里使用 `myspec`，建议先对照这两套示例查看 `proposal -> requirements -> tasks -> test-case -> traceability` 的最小骨架。
 
+## 配置与排障
+
+- Python checks 示例：`docs/config/python.md`
+- Go checks 示例：`docs/config/go.md`
+- Rust checks 示例：`docs/config/rust.md`
+- 常见问题：`docs/faq.md`
+
 ## Commands
 
 - `myspec init`
