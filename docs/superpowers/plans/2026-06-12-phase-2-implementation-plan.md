@@ -123,7 +123,7 @@ describe("reviewResultSchema", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: FAIL，因为 `reviewResultSchema` 尚不存在
@@ -241,7 +241,7 @@ export const documentSectionRules: Record<string, string[]> = {
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: PASS，review 和 traceability schema 可正常解析
 
-- [ ] **Step 8: 提交本任务**
+- [x] **Step 8: 提交本任务**
 
 ```bash
 git add src/schemas/review.ts src/schemas/review-summary.ts src/schemas/traceability.ts src/review/document-rules.ts tests/review/document-checker.test.ts
@@ -258,7 +258,7 @@ git commit -m "feat(review): 建立 review 结果与追踪 schema"
 - Modify: `src/core/fs.ts`
 - Test: `tests/review/document-checker.test.ts`
 
-- [ ] **Step 1: 扩展失败测试，覆盖缺失文档与缺失章节**
+- [x] **Step 1: 扩展失败测试，覆盖缺失文档与缺失章节**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -276,7 +276,7 @@ describe("checkDocuments", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: FAIL，因为 `checkDocuments` 尚未实现
@@ -358,7 +358,7 @@ export async function checkDocuments(input: DocumentCheckInput) {
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: PASS，能识别缺失文档和缺失章节
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add src/review/document-checker.ts src/core/change.ts src/core/fs.ts tests/review/document-checker.test.ts
@@ -398,7 +398,7 @@ describe("buildReviewResult", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: FAIL，因为 `buildReviewResult` 尚未实现
@@ -458,7 +458,7 @@ export function getDefaultReviewers(document: string): string[] {
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: PASS，评分结果可按维度自动计算总分和 pass 状态
 
-- [ ] **Step 6: 提交本任务**
+- [x] **Step 6: 提交本任务**
 
 ```bash
 git add src/review/scorecard.ts src/review/reviewers.ts tests/review/aggregate.test.ts
@@ -491,7 +491,7 @@ describe("checkTraceability", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/review/traceability-checker.test.ts`
 Expected: FAIL，因为 `checkTraceability` 尚未实现
@@ -541,7 +541,7 @@ export function checkTraceability(data: TraceabilityData) {
 Run: `npm test -- tests/review/traceability-checker.test.ts`
 Expected: PASS，能识别 REQ 缺 TASK / TC 的情况
 
-- [ ] **Step 5: 记录当前实现边界，避免过度承诺**
+- [x] **Step 5: 记录当前实现边界，避免过度承诺**
 
 因为当前 `traceability.json` 只承载 `requirements -> tasks/tests` 结构，Phase 2 先完成：
 
@@ -551,7 +551,7 @@ Expected: PASS，能识别 REQ 缺 TASK / TC 的情况
 
 `TASK -> TC` 的严格校验放到后续增强阶段，等 `traceability.json` 或 `tasks.md` 解析能力补齐后再收口。
 
-- [ ] **Step 6: 提交本任务**
+- [x] **Step 6: 提交本任务**
 
 ```bash
 git add src/review/traceability-checker.ts tests/review/traceability-checker.test.ts
@@ -598,7 +598,7 @@ describe("aggregateReviewResults", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: FAIL，因为聚合逻辑尚未实现
@@ -683,7 +683,7 @@ export function canEnterApply(summary: { pass: boolean }): boolean {
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: PASS，review 聚合结果能正确输出 pass 和 next step
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add src/review/aggregate.ts src/review/review-gate.ts src/core/phase.ts tests/review/aggregate.test.ts
@@ -715,7 +715,7 @@ describe("myspec review", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/review-command.test.ts`
 Expected: FAIL，因为 review 命令尚未实现
@@ -797,7 +797,7 @@ cli.command("review <change>", "Review change artifacts").action(async (change) 
 Run: `npm test -- tests/review-command.test.ts tests/review/document-checker.test.ts tests/review/traceability-checker.test.ts tests/review/aggregate.test.ts`
 Expected: PASS，`review` 命令、文档检查、traceability 校验和汇总逻辑全部通过
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add src/commands/review.ts src/cli.ts src/core/change.ts src/core/fs.ts src/core/output.ts tests/review-command.test.ts
@@ -829,7 +829,7 @@ next: myspec apply add-login`;
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/status.test.ts`
 Expected: FAIL，因为 `status` 还未读取 review 结果
@@ -848,7 +848,7 @@ Expected: FAIL，因为 `status` 还未读取 review 结果
 Run: `npm test -- tests/status.test.ts`
 Expected: PASS，`status` 能根据 review 结果更新下一步动作
 
-- [ ] **Step 5: 提交本任务**
+- [x] **Step 5: 提交本任务**
 
 ```bash
 git add src/commands/status.ts src/core/change.ts tests/status.test.ts
