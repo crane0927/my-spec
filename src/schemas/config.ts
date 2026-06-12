@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { checkCommandConfigSchema } from "./checks.js";
 
 export const configSchema = z.object({
   project: z.object({
@@ -7,6 +8,9 @@ export const configSchema = z.object({
   }),
   workflow: z.object({
     allow_skip_clarification: z.boolean(),
+  }),
+  checks: z.object({
+    commands: z.array(checkCommandConfigSchema),
   }),
 });
 

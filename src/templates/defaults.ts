@@ -4,6 +4,12 @@ export const defaultConfig = `project:
 
 workflow:
   allow_skip_clarification: true
+
+checks:
+  commands:
+    - id: test
+      command: npm test
+      required: true
 `;
 
 export const templateFiles: Record<string, string> = {
