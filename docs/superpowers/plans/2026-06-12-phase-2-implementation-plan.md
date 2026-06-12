@@ -97,7 +97,7 @@
 - Create: `src/review/document-rules.ts`
 - Test: `tests/review/document-checker.test.ts`
 
-- [ ] **Step 1: 写 review schema 的失败测试**
+- [x] **Step 1: 写 review schema 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -128,7 +128,7 @@ describe("reviewResultSchema", () => {
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: FAIL，因为 `reviewResultSchema` 尚不存在
 
-- [ ] **Step 3: 创建 `src/schemas/review.ts`**
+- [x] **Step 3: 创建 `src/schemas/review.ts`**
 
 ```ts
 import { z } from "zod";
@@ -155,7 +155,7 @@ export type ReviewIssue = z.infer<typeof reviewIssueSchema>;
 export type ReviewResult = z.infer<typeof reviewResultSchema>;
 ```
 
-- [ ] **Step 4: 创建 `src/schemas/review-summary.ts`**
+- [x] **Step 4: 创建 `src/schemas/review-summary.ts`**
 
 ```ts
 import { z } from "zod";
@@ -183,7 +183,7 @@ export const reviewSummarySchema = z.object({
 });
 ```
 
-- [ ] **Step 5: 创建 `src/schemas/traceability.ts`**
+- [x] **Step 5: 创建 `src/schemas/traceability.ts`**
 
 ```ts
 import { z } from "zod";
@@ -202,7 +202,7 @@ export const traceabilitySchema = z.object({
 });
 ```
 
-- [ ] **Step 6: 创建 `src/review/document-rules.ts`**
+- [x] **Step 6: 创建 `src/review/document-rules.ts`**
 
 ```ts
 export const requiredDocumentsByMode = {
@@ -236,7 +236,7 @@ export const documentSectionRules: Record<string, string[]> = {
 };
 ```
 
-- [ ] **Step 7: 重新运行测试确认通过**
+- [x] **Step 7: 重新运行测试确认通过**
 
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: PASS，review 和 traceability schema 可正常解析
@@ -281,7 +281,7 @@ describe("checkDocuments", () => {
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: FAIL，因为 `checkDocuments` 尚未实现
 
-- [ ] **Step 3: 在现有 `src/core/change.ts` 上补充 change 文件读取辅助函数**
+- [x] **Step 3: 在现有 `src/core/change.ts` 上补充 change 文件读取辅助函数**
 
 ```ts
 import { join } from "node:path";
@@ -301,7 +301,7 @@ export async function listChangeFiles(cwd: string, changeName: string): Promise<
 }
 ```
 
-- [ ] **Step 4: 在 `src/core/fs.ts` 增加 JSON 写入辅助函数**
+- [x] **Step 4: 在 `src/core/fs.ts` 增加 JSON 写入辅助函数**
 
 ```ts
 export async function writeJsonFile(path: string, value: unknown): Promise<void> {
@@ -309,7 +309,7 @@ export async function writeJsonFile(path: string, value: unknown): Promise<void>
 }
 ```
 
-- [ ] **Step 5: 创建 `src/review/document-checker.ts`**
+- [x] **Step 5: 创建 `src/review/document-checker.ts`**
 
 ```ts
 import { documentSectionRules, requiredDocumentsByMode } from "./document-rules.js";
@@ -353,7 +353,7 @@ export async function checkDocuments(input: DocumentCheckInput) {
 }
 ```
 
-- [ ] **Step 6: 运行测试确认通过**
+- [x] **Step 6: 运行测试确认通过**
 
 Run: `npm test -- tests/review/document-checker.test.ts`
 Expected: PASS，能识别缺失文档和缺失章节
@@ -374,7 +374,7 @@ git commit -m "feat(review): 实现文档完整性检查器"
 - Create: `src/review/reviewers.ts`
 - Test: `tests/review/aggregate.test.ts`
 
-- [ ] **Step 1: 写评分结果生成器的失败测试**
+- [x] **Step 1: 写评分结果生成器的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -403,7 +403,7 @@ describe("buildReviewResult", () => {
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: FAIL，因为 `buildReviewResult` 尚未实现
 
-- [ ] **Step 3: 创建 `src/review/scorecard.ts`**
+- [x] **Step 3: 创建 `src/review/scorecard.ts`**
 
 ```ts
 import type { ReviewIssue, ReviewResult } from "../schemas/review.js";
@@ -433,7 +433,7 @@ export function buildReviewResult(input: BuildReviewResultInput): ReviewResult {
 }
 ```
 
-- [ ] **Step 4: 创建 `src/review/reviewers.ts`**
+- [x] **Step 4: 创建 `src/review/reviewers.ts`**
 
 ```ts
 export function getDefaultReviewers(document: string): string[] {
@@ -453,7 +453,7 @@ export function getDefaultReviewers(document: string): string[] {
 }
 ```
 
-- [ ] **Step 5: 运行测试确认通过**
+- [x] **Step 5: 运行测试确认通过**
 
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: PASS，评分结果可按维度自动计算总分和 pass 状态
@@ -473,7 +473,7 @@ git commit -m "feat(review): 实现评分结果生成器与默认 reviewer"
 - Create: `src/review/traceability-checker.ts`
 - Test: `tests/review/traceability-checker.test.ts`
 
-- [ ] **Step 1: 写 traceability 校验失败测试**
+- [x] **Step 1: 写 traceability 校验失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -496,7 +496,7 @@ describe("checkTraceability", () => {
 Run: `npm test -- tests/review/traceability-checker.test.ts`
 Expected: FAIL，因为 `checkTraceability` 尚未实现
 
-- [ ] **Step 3: 创建 `src/review/traceability-checker.ts`**
+- [x] **Step 3: 创建 `src/review/traceability-checker.ts`**
 
 ```ts
 import type { z } from "zod";
@@ -536,7 +536,7 @@ export function checkTraceability(data: TraceabilityData) {
 }
 ```
 
-- [ ] **Step 4: 运行测试确认通过**
+- [x] **Step 4: 运行测试确认通过**
 
 Run: `npm test -- tests/review/traceability-checker.test.ts`
 Expected: PASS，能识别 REQ 缺 TASK / TC 的情况
@@ -568,7 +568,7 @@ git commit -m "feat(review): 实现追踪关系校验器"
 - Create: `src/core/phase.ts`
 - Test: `tests/review/aggregate.test.ts`
 
-- [ ] **Step 1: 写汇总与 gate 的失败测试**
+- [x] **Step 1: 写汇总与 gate 的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -603,7 +603,7 @@ describe("aggregateReviewResults", () => {
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: FAIL，因为聚合逻辑尚未实现
 
-- [ ] **Step 3: 创建 `src/core/phase.ts`**
+- [x] **Step 3: 创建 `src/core/phase.ts`**
 
 ```ts
 export function getReviewFallbackStep(document: string): string {
@@ -615,7 +615,7 @@ export function getReviewFallbackStep(document: string): string {
 }
 ```
 
-- [ ] **Step 4: 创建 `src/review/aggregate.ts`**
+- [x] **Step 4: 创建 `src/review/aggregate.ts`**
 
 ```ts
 import { getReviewFallbackStep } from "../core/phase.js";
@@ -670,7 +670,7 @@ export function aggregateReviewResults(input: AggregateReviewInput) {
 }
 ```
 
-- [ ] **Step 5: 创建 `src/review/review-gate.ts`**
+- [x] **Step 5: 创建 `src/review/review-gate.ts`**
 
 ```ts
 export function canEnterApply(summary: { pass: boolean }): boolean {
@@ -678,7 +678,7 @@ export function canEnterApply(summary: { pass: boolean }): boolean {
 }
 ```
 
-- [ ] **Step 6: 运行测试确认通过**
+- [x] **Step 6: 运行测试确认通过**
 
 Run: `npm test -- tests/review/aggregate.test.ts`
 Expected: PASS，review 聚合结果能正确输出 pass 和 next step
@@ -702,7 +702,7 @@ git commit -m "feat(review): 实现 review 汇总与 gate 判定"
 - Modify: `src/core/output.ts`
 - Create: `tests/review-command.test.ts`
 
-- [ ] **Step 1: 写 `myspec review` 命令的失败测试**
+- [x] **Step 1: 写 `myspec review` 命令的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -720,7 +720,7 @@ describe("myspec review", () => {
 Run: `npm test -- tests/review-command.test.ts`
 Expected: FAIL，因为 review 命令尚未实现
 
-- [ ] **Step 3: 创建 `src/commands/review.ts`**
+- [x] **Step 3: 创建 `src/commands/review.ts`**
 
 ```ts
 import { join } from "node:path";
@@ -772,7 +772,7 @@ export async function runReview(cwd: string, changeName: string) {
 }
 ```
 
-- [ ] **Step 4: 在 `src/core/output.ts` 增加 review 摘要输出**
+- [x] **Step 4: 在 `src/core/output.ts` 增加 review 摘要输出**
 
 ```ts
 export function formatReviewSummary(summary: { pass: boolean; nextStep: string }): string {
@@ -780,7 +780,7 @@ export function formatReviewSummary(summary: { pass: boolean; nextStep: string }
 }
 ```
 
-- [ ] **Step 5: 在 `src/cli.ts` 注册 `review` 命令**
+- [x] **Step 5: 在 `src/cli.ts` 注册 `review` 命令**
 
 ```ts
 import { runReview } from "./commands/review.js";
@@ -792,7 +792,7 @@ cli.command("review <change>", "Review change artifacts").action(async (change) 
 });
 ```
 
-- [ ] **Step 6: 运行 review 命令测试与 Phase 2 全量测试**
+- [x] **Step 6: 运行 review 命令测试与 Phase 2 全量测试**
 
 Run: `npm test -- tests/review-command.test.ts tests/review/document-checker.test.ts tests/review/traceability-checker.test.ts tests/review/aggregate.test.ts`
 Expected: PASS，`review` 命令、文档检查、traceability 校验和汇总逻辑全部通过
@@ -813,7 +813,7 @@ git commit -m "feat(review): 实现 review 命令与结果工件输出"
 - Modify: `src/core/change.ts`
 - Modify: `tests/status.test.ts`
 
-- [ ] **Step 1: 先扩展 `status` 测试**
+- [x] **Step 1: 先扩展 `status` 测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -834,7 +834,7 @@ next: myspec apply add-login`;
 Run: `npm test -- tests/status.test.ts`
 Expected: FAIL，因为 `status` 还未读取 review 结果
 
-- [ ] **Step 3: 在 `status` 中增加 `review-summary.json` 检测**
+- [x] **Step 3: 在 `status` 中增加 `review-summary.json` 检测**
 
 实现目标：
 
@@ -843,7 +843,7 @@ Expected: FAIL，因为 `status` 还未读取 review 结果
 - 当 `review-summary.json` 存在且 `pass = true` 时，`next` 提示 `myspec apply <change>`
 - 当 `review-summary.json` 存在但 `pass = false` 时，`next` 输出 summary 中的回退建议
 
-- [ ] **Step 4: 运行测试确认通过**
+- [x] **Step 4: 运行测试确认通过**
 
 Run: `npm test -- tests/status.test.ts`
 Expected: PASS，`status` 能根据 review 结果更新下一步动作
