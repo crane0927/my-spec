@@ -9,3 +9,7 @@ export function formatSuccess(message: string): string {
 export function formatError(message: string): string {
   return `error: ${message}`;
 }
+
+export function formatReviewSummary(summary: { pass: boolean; nextStep: string }): string {
+  return `review: ${summary.pass ? "passed" : "failed"}\nnext: ${summary.nextStep}`;
+}

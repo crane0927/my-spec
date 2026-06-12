@@ -4,7 +4,9 @@ import { runDraft } from "./commands/draft.js";
 import { runInit } from "./commands/init.js";
 import { runList } from "./commands/list.js";
 import { runPropose } from "./commands/propose.js";
+import { runReview } from "./commands/review.js";
 import { runStatus } from "./commands/status.js";
+import { formatReviewSummary } from "./core/output.js";
 
 const cli = cac("myspec");
 
@@ -28,6 +30,11 @@ cli
 
 cli.command("draft <change>", "Generate change artifacts").action(async (change) => {
   await runDraft(process.cwd(), change);
+});
+
+cli.command("review <change>", "Review change artifacts").action(async (change) => {
+  const summary = await runReview(process.cwd(), change);
+  console.log(formatReviewSummary(summary));
 });
 
 cli.command("status <change>", "Show current change status").action(async (change) => {
