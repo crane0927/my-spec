@@ -1,0 +1,17 @@
+{
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "tasks": ["TASK-001", "TASK-002"],
+      "tests": ["TC-001"],
+      "status": "covered"
+    }
+  ],
+  "summary": {
+    "totalRequirements": 1,
+    "fullyCovered": 1,
+    "partiallyCovered": 0,
+    "uncovered": 0
+  },
+  "gaps": []
+}

@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "id": "TC-001",
+      "title": "正确凭证登录成功后跳转首页",
+      "requirements": ["REQ-001"],
+      "tasks": ["TASK-001", "TASK-002"],
+      "type": "integration",
+      "priority": "P0",
+      "executionMode": "automated",
+      "commands": ["test:auth-login"],
+      "files": ["tests/auth/login.test.ts"],
+      "status": "pending"
+    },
+    {
+      "id": "TC-002",
+      "title": "错误凭证登录失败后显示统一错误提示",
+      "requirements": ["REQ-002"],
+      "tasks": ["TASK-003"],
+      "type": "integration",
+      "priority": "P0",
+      "executionMode": "automated",
+      "commands": ["test:auth-login-errors"],
+      "files": ["tests/auth/login-errors.test.ts"],
+      "status": "pending"
+    }
+  ]
+}

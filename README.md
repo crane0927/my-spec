@@ -91,6 +91,13 @@ node dist/cli.js status quick-fix
 - `review`：检查规格文档是否完整、模式是否匹配、追踪关系是否可进入 apply。
 - `verify`：执行项目级检查命令，记录测试、lint、构建等验证结果。
 
+## 示例目录
+
+- 标准模式示例：`docs/examples/standard-change/`
+- 轻量模式示例：`docs/examples/lite-change/`
+
+如果你想先理解目录结构，再开始在自己的项目里使用 `myspec`，建议先对照这两套示例查看 `proposal -> requirements -> tasks -> test-case -> traceability` 的最小骨架。
+
 ## Commands
 
 - `myspec init`
