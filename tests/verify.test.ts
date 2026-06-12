@@ -9,6 +9,7 @@ import { runReview } from "../src/commands/review.js";
 import { runVerify } from "../src/commands/verify.js";
 import { configSchema } from "../src/schemas/config.js";
 import { metaSchema } from "../src/schemas/meta.js";
+import { buildVerification } from "../src/verify/verification-builder.js";
 
 describe("phase 3 schemas", () => {
   it("accepts applying and verified statuses", () => {
@@ -37,6 +38,13 @@ describe("phase 3 schemas", () => {
 });
 
 describe("myspec verify", () => {
+  it("sets a fallback action for required check failures", () => {
+    const verification = buildVerification("add-login", [{ required: true, passed: false }]);
+
+    expect(verification.status).toBe("failed");
+    expect(verification.nextStep).toBe("返回 apply 修复");
+  });
+
   it("writes checks, verification and evidence artifacts", async () => {
     const root = await mkdtemp(join(tmpdir(), "myspec-verify-"));
     await runInit(root);

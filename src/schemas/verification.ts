@@ -12,6 +12,7 @@ export const verificationSchema = z.object({
   status: z.enum(["passed", "failed"]),
   gates: z.record(z.string(), z.string()),
   issues: z.array(verificationIssueSchema),
+  nextStep: z.string().min(1).optional(),
 });
 
 export type VerificationIssue = z.infer<typeof verificationIssueSchema>;

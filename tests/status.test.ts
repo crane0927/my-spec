@@ -9,7 +9,6 @@ import { runPropose } from "../src/commands/propose.js";
 import { runReport } from "../src/commands/report.js";
 import { runReview } from "../src/commands/review.js";
 import { runStatus } from "../src/commands/status.js";
-import { runVerify } from "../src/commands/verify.js";
 import { ensureDir, writeJsonFile } from "../src/core/fs.js";
 
 describe("myspec status", () => {
@@ -61,7 +60,41 @@ describe("myspec status", () => {
     expect(output).toContain("next: myspec review tiny-fix");
   });
 
-  it("suggests verify after apply, report after verify, and done after report", async () => {
+  it("shows fallback target when verification fails", async () => {
+    const root = await mkdtemp(join(tmpdir(), "myspec-status-fallback-"));
+
+    await runInit(root);
+    await runPropose(root, "add-login", "standard");
+    await runClarify(root, "add-login", true);
+    await runDraft(root, "add-login");
+    await runReview(root, "add-login");
+    await ensureDir(join(root, ".myspec", "changes", "add-login", "verification"));
+    await writeJsonFile(join(root, ".myspec", "changes", "add-login", "meta.json"), {
+      change: "add-login",
+      mode: "standard",
+      status: "implemented",
+      riskLevel: "high",
+      createdAt: "2026-06-12T00:00:00.000Z",
+    });
+    await writeJsonFile(
+      join(root, ".myspec", "changes", "add-login", "verification", "verification.json"),
+      {
+        change: "add-login",
+        status: "failed",
+        gates: {
+          testExecution: "failed",
+        },
+        issues: [],
+        nextStep: "返回 apply 修复",
+      },
+    );
+
+    const output = await runStatus(root, "add-login");
+
+    expect(output).toContain("next: 返回 apply 修复");
+  });
+
+  it("suggests verify after apply, report after successful verify, and done after report", async () => {
     const root = await mkdtemp(join(tmpdir(), "myspec-status-phase3-"));
 
     await runInit(root);
@@ -84,7 +117,26 @@ describe("myspec status", () => {
     const applyOutput = await runStatus(root, "add-login");
     expect(applyOutput).toContain("next: myspec verify add-login");
 
-    await runVerify(root, "add-login");
+    await ensureDir(join(root, ".myspec", "changes", "add-login", "verification"));
+    await writeJsonFile(join(root, ".myspec", "changes", "add-login", "verification", "verification.json"), {
+      change: "add-login",
+      status: "passed",
+      gates: {
+        testExecution: "passed",
+      },
+      issues: [],
+    });
+    await writeJsonFile(join(root, ".myspec", "changes", "add-login", "verification", "evidence.json"), {
+      change: "add-login",
+      items: [],
+    });
+    await writeJsonFile(join(root, ".myspec", "changes", "add-login", "meta.json"), {
+      change: "add-login",
+      mode: "standard",
+      status: "verified",
+      riskLevel: "high",
+      createdAt: "2026-06-12T00:00:00.000Z",
+    });
 
     const verifyOutput = await runStatus(root, "add-login");
     expect(verifyOutput).toContain("next: myspec report add-login");

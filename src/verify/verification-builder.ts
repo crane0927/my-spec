@@ -1,8 +1,13 @@
+import { getFallbackAction } from "../core/phase.js";
+
 export function buildVerification(
   changeName: string,
   checks: Array<{ required: boolean; passed: boolean }>,
 ) {
   const hasRequiredFailure = checks.some((item) => item.required && !item.passed);
+  const nextStep = hasRequiredFailure
+    ? getFallbackAction({ phase: "verify", reason: "execution" })
+    : undefined;
 
   return {
     change: changeName,
@@ -21,5 +26,6 @@ export function buildVerification(
           },
         ]
       : [],
+    nextStep,
   };
 }

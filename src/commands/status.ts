@@ -8,6 +8,7 @@ import {
 import { readTextFile } from "../core/fs.js";
 import { metaSchema } from "../schemas/meta.js";
 import { reviewSummarySchema } from "../schemas/review-summary.js";
+import { verificationSchema } from "../schemas/verification.js";
 
 const requiredArtifactsByMode = {
   standard: ["clarification.md", "requirements.md", "design.md", "tasks.md"],
@@ -53,7 +54,13 @@ export async function runStatus(cwd: string, changeName: string): Promise<string
     } else if (meta.status === "reported" && (await fileExists(reportPath))) {
       nextStep = "done";
     } else if (await fileExists(verificationPath)) {
-      nextStep = `myspec report ${changeName}`;
+      const verification = verificationSchema.parse(
+        JSON.parse(await readTextFile(verificationPath)),
+      );
+      nextStep =
+        verification.status === "failed" && verification.nextStep
+          ? verification.nextStep
+          : `myspec report ${changeName}`;
     } else if (meta.status === "applying" || meta.status === "implemented" || meta.status === "verifying") {
       nextStep = `myspec verify ${changeName}`;
     } else {
