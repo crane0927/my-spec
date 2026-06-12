@@ -9,7 +9,10 @@ import { readTextFile } from "../core/fs.js";
 import { metaSchema } from "../schemas/meta.js";
 import { reviewSummarySchema } from "../schemas/review-summary.js";
 
-const requiredArtifacts = ["clarification.md", "requirements.md", "design.md", "tasks.md"];
+const requiredArtifactsByMode = {
+  standard: ["clarification.md", "requirements.md", "design.md", "tasks.md"],
+  lite: ["requirements.md", "tasks.md"],
+} as const;
 
 async function fileExists(path: string): Promise<boolean> {
   try {
@@ -24,6 +27,7 @@ export async function runStatus(cwd: string, changeName: string): Promise<string
   const metaPath = getChangeFilePath(cwd, changeName, "meta.json");
   const rawMeta = await readTextFile(metaPath);
   const meta = metaSchema.parse(JSON.parse(rawMeta));
+  const requiredArtifacts = requiredArtifactsByMode[meta.mode];
 
   const missing: string[] = [];
 
@@ -35,7 +39,7 @@ export async function runStatus(cwd: string, changeName: string): Promise<string
 
   let nextStep: string;
 
-  if (missing.includes("clarification.md")) {
+  if (meta.mode === "standard" && missing.includes("clarification.md")) {
     nextStep = `myspec clarify ${changeName}`;
   } else if (missing.length > 0) {
     nextStep = `myspec draft ${changeName}`;
@@ -59,6 +63,7 @@ export async function runStatus(cwd: string, changeName: string): Promise<string
   }
 
   return `status: ${meta.status}
+mode: ${meta.mode}
 missing: ${missing.join(", ") || "none"}
 next: ${nextStep}`;
 }

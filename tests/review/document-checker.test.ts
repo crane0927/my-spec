@@ -30,4 +30,21 @@ describe("checkDocuments", () => {
 
     expect(result.issues.some((issue) => issue.title.includes("Missing document"))).toBe(true);
   });
+
+  it("does not require clarification or design for lite mode", async () => {
+    const result = await checkDocuments({
+      mode: "lite",
+      files: new Map([
+        ["proposal.md", "# Proposal\n\n## Goals\n\n## Recommended Workflow Mode\n"],
+        ["requirements.md", "# Requirements\n\n## Requirements\n"],
+        ["tasks.md", "# Tasks\n"],
+        ["test-case.md", "# Test Cases\n"],
+        ["test-case.json", "{\n  \"cases\": []\n}\n"],
+        ["traceability.json", "{\n  \"requirements\": [],\n  \"summary\": {},\n  \"gaps\": []\n}\n"],
+      ]),
+    });
+
+    expect(result.issues.some((issue) => issue.title.includes("clarification.md"))).toBe(false);
+    expect(result.issues.some((issue) => issue.title.includes("design.md"))).toBe(false);
+  });
 });

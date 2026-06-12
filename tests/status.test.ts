@@ -48,6 +48,19 @@ describe("myspec status", () => {
     expect(output).toContain("next: myspec apply add-login");
   });
 
+  it("does not require clarification or design artifacts for lite changes", async () => {
+    const root = await mkdtemp(join(tmpdir(), "myspec-status-lite-"));
+
+    await runInit(root);
+    await runPropose(root, "tiny-fix", "lite");
+    await runDraft(root, "tiny-fix");
+
+    const output = await runStatus(root, "tiny-fix");
+
+    expect(output).toContain("missing: none");
+    expect(output).toContain("next: myspec review tiny-fix");
+  });
+
   it("suggests verify after apply, report after verify, and done after report", async () => {
     const root = await mkdtemp(join(tmpdir(), "myspec-status-phase3-"));
 
