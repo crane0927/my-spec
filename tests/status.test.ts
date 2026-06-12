@@ -6,7 +6,10 @@ import { runClarify } from "../src/commands/clarify.js";
 import { runDraft } from "../src/commands/draft.js";
 import { runInit } from "../src/commands/init.js";
 import { runPropose } from "../src/commands/propose.js";
+import { runReport } from "../src/commands/report.js";
+import { runReview } from "../src/commands/review.js";
 import { runStatus } from "../src/commands/status.js";
+import { runVerify } from "../src/commands/verify.js";
 import { ensureDir, writeJsonFile } from "../src/core/fs.js";
 
 describe("myspec status", () => {
@@ -43,5 +46,39 @@ describe("myspec status", () => {
     const output = await runStatus(root, "add-login");
 
     expect(output).toContain("next: myspec apply add-login");
+  });
+
+  it("suggests verify after apply, report after verify, and done after report", async () => {
+    const root = await mkdtemp(join(tmpdir(), "myspec-status-phase3-"));
+
+    await runInit(root);
+    await runPropose(root, "add-login", "standard");
+    await runClarify(root, "add-login", true);
+    await runDraft(root, "add-login");
+    await runReview(root, "add-login");
+
+    const reviewOutput = await runStatus(root, "add-login");
+    expect(reviewOutput).toContain("next: myspec apply add-login");
+
+    await writeJsonFile(join(root, ".myspec", "changes", "add-login", "meta.json"), {
+      change: "add-login",
+      mode: "standard",
+      status: "applying",
+      riskLevel: "high",
+      createdAt: "2026-06-12T00:00:00.000Z",
+    });
+
+    const applyOutput = await runStatus(root, "add-login");
+    expect(applyOutput).toContain("next: myspec verify add-login");
+
+    await runVerify(root, "add-login");
+
+    const verifyOutput = await runStatus(root, "add-login");
+    expect(verifyOutput).toContain("next: myspec report add-login");
+
+    await runReport(root, "add-login");
+
+    const reportOutput = await runStatus(root, "add-login");
+    expect(reportOutput).toContain("next: done");
   });
 });

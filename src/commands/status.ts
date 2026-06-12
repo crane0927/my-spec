@@ -1,5 +1,10 @@
 import { access } from "node:fs/promises";
-import { getChangeFilePath, getChangeScoresDir } from "../core/change.js";
+import {
+  getChangeFilePath,
+  getChangeReportPath,
+  getChangeScoresDir,
+  getChangeVerificationFilePath,
+} from "../core/change.js";
 import { readTextFile } from "../core/fs.js";
 import { metaSchema } from "../schemas/meta.js";
 import { reviewSummarySchema } from "../schemas/review-summary.js";
@@ -36,9 +41,17 @@ export async function runStatus(cwd: string, changeName: string): Promise<string
     nextStep = `myspec draft ${changeName}`;
   } else {
     const reviewSummaryPath = `${getChangeScoresDir(cwd, changeName)}/review-summary.json`;
+    const verificationPath = getChangeVerificationFilePath(cwd, changeName, "verification.json");
+    const reportPath = getChangeReportPath(cwd, changeName, "report.json");
 
     if (!(await fileExists(reviewSummaryPath))) {
       nextStep = `myspec review ${changeName}`;
+    } else if (meta.status === "reported" && (await fileExists(reportPath))) {
+      nextStep = "done";
+    } else if (await fileExists(verificationPath)) {
+      nextStep = `myspec report ${changeName}`;
+    } else if (meta.status === "applying" || meta.status === "implemented" || meta.status === "verifying") {
+      nextStep = `myspec verify ${changeName}`;
     } else {
       const summary = reviewSummarySchema.parse(JSON.parse(await readTextFile(reviewSummaryPath)));
       nextStep = summary.pass ? `myspec apply ${changeName}` : summary.nextStep;
