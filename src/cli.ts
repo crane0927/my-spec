@@ -2,7 +2,9 @@ import { cac } from "cac";
 import { runClarify } from "./commands/clarify.js";
 import { runDraft } from "./commands/draft.js";
 import { runInit } from "./commands/init.js";
+import { runList } from "./commands/list.js";
 import { runPropose } from "./commands/propose.js";
+import { runStatus } from "./commands/status.js";
 
 const cli = cac("myspec");
 
@@ -26,6 +28,14 @@ cli
 
 cli.command("draft <change>", "Generate change artifacts").action(async (change) => {
   await runDraft(process.cwd(), change);
+});
+
+cli.command("status <change>", "Show current change status").action(async (change) => {
+  console.log(await runStatus(process.cwd(), change));
+});
+
+cli.command("list", "List all changes").action(async () => {
+  console.log(await runList(process.cwd()));
 });
 
 cli.help();
