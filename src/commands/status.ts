@@ -1,7 +1,8 @@
 import { access } from "node:fs/promises";
-import { getChangeFilePath } from "../core/change.js";
+import { getChangeFilePath, getChangeScoresDir } from "../core/change.js";
 import { readTextFile } from "../core/fs.js";
 import { metaSchema } from "../schemas/meta.js";
+import { reviewSummarySchema } from "../schemas/review-summary.js";
 
 const requiredArtifacts = ["clarification.md", "requirements.md", "design.md", "tasks.md"];
 
@@ -27,11 +28,22 @@ export async function runStatus(cwd: string, changeName: string): Promise<string
     }
   }
 
-  const nextStep = missing.includes("clarification.md")
-    ? `myspec clarify ${changeName}`
-    : missing.length > 0
-      ? `myspec draft ${changeName}`
-      : `myspec review ${changeName}`;
+  let nextStep: string;
+
+  if (missing.includes("clarification.md")) {
+    nextStep = `myspec clarify ${changeName}`;
+  } else if (missing.length > 0) {
+    nextStep = `myspec draft ${changeName}`;
+  } else {
+    const reviewSummaryPath = `${getChangeScoresDir(cwd, changeName)}/review-summary.json`;
+
+    if (!(await fileExists(reviewSummaryPath))) {
+      nextStep = `myspec review ${changeName}`;
+    } else {
+      const summary = reviewSummarySchema.parse(JSON.parse(await readTextFile(reviewSummaryPath)));
+      nextStep = summary.pass ? `myspec apply ${changeName}` : summary.nextStep;
+    }
+  }
 
   return `status: ${meta.status}
 missing: ${missing.join(", ") || "none"}

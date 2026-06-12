@@ -21,6 +21,10 @@ export function getChangeFilePath(root: string, changeName: string, fileName: st
   return join(getChangeDir(root, changeName), fileName);
 }
 
+export function getChangeScoresDir(root: string, changeName: string): string {
+  return join(getChangeDir(root, changeName), "scores");
+}
+
 export async function readChangeFile(
   root: string,
   changeName: string,
