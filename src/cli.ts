@@ -1,4 +1,5 @@
 import { cac } from "cac";
+import { runClarify } from "./commands/clarify.js";
 import { runInit } from "./commands/init.js";
 import { runPropose } from "./commands/propose.js";
 
@@ -13,6 +14,13 @@ cli
   .option("--mode <mode>", "Workflow mode", { default: "standard" })
   .action(async (change, options) => {
     await runPropose(process.cwd(), change, options.mode as "standard" | "lite");
+  });
+
+cli
+  .command("clarify <change>", "Create clarification document")
+  .option("--skip", "Skip clarification and create placeholder")
+  .action(async (change, options) => {
+    await runClarify(process.cwd(), change, Boolean(options.skip));
   });
 
 cli.help();
