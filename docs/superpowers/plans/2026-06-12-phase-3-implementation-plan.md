@@ -101,7 +101,7 @@
 - Modify: `src/templates/defaults.ts`
 - Test: `tests/verify.test.ts`
 
-- [ ] **Step 1: 写 schema 扩展的失败测试**
+- [x] **Step 1: 写 schema 扩展的失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -137,12 +137,12 @@ describe("phase 3 schemas", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/verify.test.ts`
 Expected: FAIL，因为 `metaSchema` 和 `configSchema` 还不支持 Phase 3 字段
 
-- [ ] **Step 3: 扩展 `src/schemas/meta.ts`**
+- [x] **Step 3: 扩展 `src/schemas/meta.ts`**
 
 ```ts
 status: z.enum([
@@ -159,7 +159,7 @@ status: z.enum([
 ]),
 ```
 
-- [ ] **Step 4: 扩展 `src/schemas/config.ts`**
+- [x] **Step 4: 扩展 `src/schemas/config.ts`**
 
 ```ts
 import { z } from "zod";
@@ -184,7 +184,7 @@ export const configSchema = z.object({
 });
 ```
 
-- [ ] **Step 5: 创建 `src/schemas/checks.ts`**
+- [x] **Step 5: 创建 `src/schemas/checks.ts`**
 
 ```ts
 import { z } from "zod";
@@ -205,7 +205,7 @@ export const checksFileSchema = z.object({
 });
 ```
 
-- [ ] **Step 6: 创建 `src/schemas/verification.ts`、`src/schemas/evidence.ts`、`src/schemas/report.ts`**
+- [x] **Step 6: 创建 `src/schemas/verification.ts`、`src/schemas/evidence.ts`、`src/schemas/report.ts`**
 
 ```ts
 // verification.ts
@@ -258,7 +258,7 @@ export const reportSchema = z.object({
 });
 ```
 
-- [ ] **Step 7: 扩展 `src/templates/defaults.ts` 中的默认配置**
+- [x] **Step 7: 扩展 `src/templates/defaults.ts` 中的默认配置**
 
 ```ts
 export const defaultConfig = `project:
@@ -276,7 +276,7 @@ checks:
 `;
 ```
 
-- [ ] **Step 8: 运行测试确认通过**
+- [x] **Step 8: 运行测试确认通过**
 
 Run: `npm test -- tests/verify.test.ts`
 Expected: PASS，Phase 3 所需状态和 checks 配置可被 schema 接受
@@ -299,7 +299,7 @@ git commit -m "feat(schema): 扩展 Phase 3 配置与状态 schema"
 - Modify: `src/core/change.ts`
 - Test: `tests/apply.test.ts`
 
-- [ ] **Step 1: 写 apply 的失败测试**
+- [x] **Step 1: 写 apply 的失败测试**
 
 ```ts
 import { mkdtemp } from "node:fs/promises";
@@ -323,12 +323,12 @@ describe("myspec apply", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/apply.test.ts`
 Expected: FAIL，因为 `runApply` 尚不存在
 
-- [ ] **Step 3: 在 `src/core/change.ts` 增加 Phase 3 路径辅助函数**
+- [x] **Step 3: 在 `src/core/change.ts` 增加 Phase 3 路径辅助函数**
 
 ```ts
 export function getChangeVerificationDir(root: string, changeName: string): string {
@@ -340,7 +340,7 @@ export function getChangeReportPath(root: string, changeName: string, fileName: 
 }
 ```
 
-- [ ] **Step 4: 创建 `src/apply/context.ts`**
+- [x] **Step 4: 创建 `src/apply/context.ts`**
 
 ```ts
 import { readChangeFile } from "../core/change.js";
@@ -359,7 +359,7 @@ export async function loadApplyContext(root: string, changeName: string) {
 }
 ```
 
-- [ ] **Step 5: 创建 `src/apply/gate.ts`**
+- [x] **Step 5: 创建 `src/apply/gate.ts`**
 
 ```ts
 import { getChangeFilePath, getChangeScoresDir } from "../core/change.js";
@@ -391,7 +391,7 @@ export async function assertCanApply(root: string, changeName: string): Promise<
 }
 ```
 
-- [ ] **Step 6: 创建 `src/commands/apply.ts`**
+- [x] **Step 6: 创建 `src/commands/apply.ts`**
 
 ```ts
 import { assertCanApply } from "../apply/gate.js";
@@ -409,7 +409,7 @@ export async function runApply(root: string, changeName: string) {
 }
 ```
 
-- [ ] **Step 7: 运行测试确认通过**
+- [x] **Step 7: 运行测试确认通过**
 
 Run: `npm test -- tests/apply.test.ts`
 Expected: PASS，apply 在 review 未完成时失败，在上下文完整时能装配成功
@@ -432,7 +432,7 @@ git commit -m "feat(apply): 实现 apply 上下文装配与进入条件校验"
 - Modify: `src/core/output.ts`
 - Test: `tests/apply.test.ts`
 
-- [ ] **Step 1: 扩展 apply 测试，覆盖状态更新**
+- [x] **Step 1: 扩展 apply 测试，覆盖状态更新**
 
 ```ts
 import { readFile } from "node:fs/promises";
@@ -450,12 +450,12 @@ it("updates meta status to applying", async () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/apply.test.ts`
 Expected: FAIL，因为 apply 还未写回状态
 
-- [ ] **Step 3: 创建 `src/apply/status-updater.ts`**
+- [x] **Step 3: 创建 `src/apply/status-updater.ts`**
 
 ```ts
 import { getChangeFilePath } from "../core/change.js";
@@ -473,7 +473,7 @@ export async function updateChangeStatus(
 }
 ```
 
-- [ ] **Step 4: 在 `src/commands/apply.ts` 中写回状态**
+- [x] **Step 4: 在 `src/commands/apply.ts` 中写回状态**
 
 ```ts
 import { updateChangeStatus } from "../apply/status-updater.js";
@@ -491,7 +491,7 @@ export async function runApply(root: string, changeName: string) {
 }
 ```
 
-- [ ] **Step 5: 在 `src/core/output.ts` 增加 apply 摘要**
+- [x] **Step 5: 在 `src/core/output.ts` 增加 apply 摘要**
 
 ```ts
 export function formatApplySummary(summary: { change: string; status: string }): string {
@@ -499,7 +499,7 @@ export function formatApplySummary(summary: { change: string; status: string }):
 }
 ```
 
-- [ ] **Step 6: 在 `src/cli.ts` 注册 `apply` 命令**
+- [x] **Step 6: 在 `src/cli.ts` 注册 `apply` 命令**
 
 ```ts
 import { runApply } from "./commands/apply.js";
@@ -511,7 +511,7 @@ cli.command("apply <change>", "Prepare apply context").action(async (change) => 
 });
 ```
 
-- [ ] **Step 7: 运行测试确认通过**
+- [x] **Step 7: 运行测试确认通过**
 
 Run: `npm test -- tests/apply.test.ts`
 Expected: PASS，apply 会把 `meta.status` 更新为 `applying`
@@ -533,7 +533,7 @@ git commit -m "feat(apply): 接入 apply 状态更新与命令输出"
 - Test: `tests/core/executor.test.ts`
 - Test: `tests/verify.test.ts`
 
-- [ ] **Step 1: 写命令执行器失败测试**
+- [x] **Step 1: 写命令执行器失败测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -548,12 +548,12 @@ describe("runCommand", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/core/executor.test.ts`
 Expected: FAIL，因为 `runCommand` 尚未实现
 
-- [ ] **Step 3: 创建 `src/core/executor.ts`**
+- [x] **Step 3: 创建 `src/core/executor.ts`**
 
 ```ts
 import { exec } from "node:child_process";
@@ -575,7 +575,7 @@ export function runCommand(command: string, cwd: string): Promise<{
 }
 ```
 
-- [ ] **Step 4: 创建 `src/verify/checks-runner.ts`**
+- [x] **Step 4: 创建 `src/verify/checks-runner.ts`**
 
 ```ts
 import { loadConfig } from "../core/config.js";
@@ -603,7 +603,7 @@ export async function runChecks(root: string) {
 }
 ```
 
-- [ ] **Step 5: 运行测试确认通过**
+- [x] **Step 5: 运行测试确认通过**
 
 Run: `npm test -- tests/core/executor.test.ts tests/verify.test.ts`
 Expected: PASS，执行器能返回 exit code / stdout / stderr，checks runner 能消费配置
@@ -626,7 +626,7 @@ git commit -m "feat(verify): 实现 checks 执行引擎"
 - Modify: `src/core/change.ts`
 - Test: `tests/verify.test.ts`
 
-- [ ] **Step 1: 写 verify 的失败测试**
+- [x] **Step 1: 写 verify 的失败测试**
 
 ```ts
 import { mkdtemp, readFile } from "node:fs/promises";
@@ -659,12 +659,12 @@ describe("myspec verify", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/verify.test.ts`
 Expected: FAIL，因为 `runVerify` 尚未实现
 
-- [ ] **Step 3: 在 `src/core/change.ts` 增加 verification 工件路径辅助函数**
+- [x] **Step 3: 在 `src/core/change.ts` 增加 verification 工件路径辅助函数**
 
 ```ts
 export function getChangeVerificationFilePath(
@@ -676,7 +676,7 @@ export function getChangeVerificationFilePath(
 }
 ```
 
-- [ ] **Step 4: 创建 `src/verify/verification-builder.ts`**
+- [x] **Step 4: 创建 `src/verify/verification-builder.ts`**
 
 ```ts
 export function buildVerification(changeName: string, checks: Array<{ required: boolean; passed: boolean }>) {
@@ -703,7 +703,7 @@ export function buildVerification(changeName: string, checks: Array<{ required: 
 }
 ```
 
-- [ ] **Step 5: 创建 `src/verify/evidence-builder.ts`**
+- [x] **Step 5: 创建 `src/verify/evidence-builder.ts`**
 
 ```ts
 export function buildEvidence(changeName: string, checks: Array<{ id: string; exitCode: number }>) {
@@ -724,7 +724,7 @@ export function buildEvidence(changeName: string, checks: Array<{ id: string; ex
 }
 ```
 
-- [ ] **Step 6: 创建 `src/commands/verify.ts`**
+- [x] **Step 6: 创建 `src/commands/verify.ts`**
 
 ```ts
 import { ensureDir, writeJsonFile } from "../core/fs.js";
@@ -758,7 +758,7 @@ export async function runVerify(root: string, changeName: string) {
 }
 ```
 
-- [ ] **Step 7: 运行测试确认通过**
+- [x] **Step 7: 运行测试确认通过**
 
 Run: `npm test -- tests/verify.test.ts`
 Expected: PASS，verify 会写出 `checks.json`、`verification.json`、`evidence.json`
@@ -780,7 +780,7 @@ git commit -m "feat(verify): 实现验证聚合与证据记录"
 - Modify: `src/core/output.ts`
 - Test: `tests/report.test.ts`
 
-- [ ] **Step 1: 写 report 的失败测试**
+- [x] **Step 1: 写 report 的失败测试**
 
 ```ts
 import { mkdtemp, readFile } from "node:fs/promises";
@@ -811,12 +811,12 @@ describe("myspec report", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/report.test.ts`
 Expected: FAIL，因为 `runReport` 尚未实现
 
-- [ ] **Step 3: 创建 `src/report/report-builder.ts`**
+- [x] **Step 3: 创建 `src/report/report-builder.ts`**
 
 ```ts
 export function buildReportMarkdown(changeName: string, verificationStatus: string): string {
@@ -843,7 +843,7 @@ export function buildReportJson(changeName: string, mode: "standard" | "lite", v
 }
 ```
 
-- [ ] **Step 4: 创建 `src/commands/report.ts`**
+- [x] **Step 4: 创建 `src/commands/report.ts`**
 
 ```ts
 import { readChangeFile } from "../core/change.js";
@@ -873,7 +873,7 @@ export async function runReport(root: string, changeName: string) {
 }
 ```
 
-- [ ] **Step 5: 在 `src/core/output.ts` 增加 report 摘要**
+- [x] **Step 5: 在 `src/core/output.ts` 增加 report 摘要**
 
 ```ts
 export function formatReportSummary(summary: { change: string; status: string }): string {
@@ -881,7 +881,7 @@ export function formatReportSummary(summary: { change: string; status: string })
 }
 ```
 
-- [ ] **Step 6: 运行测试确认通过**
+- [x] **Step 6: 运行测试确认通过**
 
 Run: `npm test -- tests/report.test.ts`
 Expected: PASS，`report.md` 和 `report.json` 被写出
@@ -903,7 +903,7 @@ git commit -m "feat(report): 实现报告生成命令"
 - Modify: `src/core/output.ts`
 - Modify: `tests/status.test.ts`
 
-- [ ] **Step 1: 扩展 status 测试**
+- [x] **Step 1: 扩展 status 测试**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -919,12 +919,12 @@ describe("myspec status phase 3", () => {
 });
 ```
 
-- [ ] **Step 2: 运行测试确认失败**
+- [x] **Step 2: 运行测试确认失败**
 
 Run: `npm test -- tests/status.test.ts`
 Expected: FAIL，因为 `status` 还未读取 verification / report 工件
 
-- [ ] **Step 3: 在 `src/cli.ts` 注册 `verify` 与 `report`**
+- [x] **Step 3: 在 `src/cli.ts` 注册 `verify` 与 `report`**
 
 ```ts
 import { runVerify } from "./commands/verify.js";
@@ -941,7 +941,7 @@ cli.command("report <change>", "Generate change report").action(async (change) =
 });
 ```
 
-- [ ] **Step 4: 扩展 `src/commands/status.ts`**
+- [x] **Step 4: 扩展 `src/commands/status.ts`**
 
 实现目标：
 
@@ -949,12 +949,12 @@ cli.command("report <change>", "Generate change report").action(async (change) =
 - 当存在 `verification/verification.json` 且 change 未 `reported` 时，提示 `myspec report <change>`
 - 当存在 `report.json` 且 `meta.status = reported` 时，提示 `done`
 
-- [ ] **Step 5: 运行 Phase 3 全量测试**
+- [x] **Step 5: 运行 Phase 3 全量测试**
 
 Run: `npm test -- tests/apply.test.ts tests/verify.test.ts tests/report.test.ts tests/status.test.ts tests/core/executor.test.ts`
 Expected: PASS，apply / verify / report / status 全链路测试通过
 
-- [ ] **Step 6: 运行类型检查和构建**
+- [x] **Step 6: 运行类型检查和构建**
 
 Run: `npm run typecheck`
 Expected: PASS
