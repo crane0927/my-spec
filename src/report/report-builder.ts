@@ -1,4 +1,26 @@
-export function buildReportMarkdown(changeName: string, verificationStatus: string): string {
+type ReportVerification = {
+  status: string;
+  coverageSummary?: {
+    totalRequirements: number;
+    fullyCovered: number;
+    partiallyCovered: number;
+    uncovered: number;
+  };
+};
+
+export function buildReportMarkdown(changeName: string, verification: ReportVerification): string {
+  const coverageSummary = verification.coverageSummary;
+  const coverageSection = coverageSummary
+    ? `
+## Coverage Summary
+
+- totalRequirements: ${coverageSummary.totalRequirements}
+- fullyCovered: ${coverageSummary.fullyCovered}
+- partiallyCovered: ${coverageSummary.partiallyCovered}
+- uncovered: ${coverageSummary.uncovered}
+`
+    : "";
+
   return `# Report
 
 ## Change
@@ -7,14 +29,14 @@ export function buildReportMarkdown(changeName: string, verificationStatus: stri
 
 ## Verification
 
-- status: ${verificationStatus}
-`;
+- status: ${verification.status}
+${coverageSection}`;
 }
 
 export function buildReportJson(
   changeName: string,
   mode: "standard" | "lite",
-  verification: unknown,
+  verification: ReportVerification,
   evidence: unknown,
 ) {
   return {
@@ -22,6 +44,7 @@ export function buildReportJson(
     mode,
     status: "reported",
     verification,
+    coverageSummary: verification.coverageSummary,
     evidenceSummary: evidence,
   };
 }

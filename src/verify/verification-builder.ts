@@ -1,8 +1,10 @@
+import type { CoverageSummary } from "../schemas/traceability.js";
 import { getFallbackAction } from "../core/phase.js";
 
 export function buildVerification(
   changeName: string,
   checks: Array<{ required: boolean; passed: boolean }>,
+  options: { coverageSummary?: CoverageSummary } = {},
 ) {
   const hasRequiredFailure = checks.some((item) => item.required && !item.passed);
   const nextStep = hasRequiredFailure
@@ -27,5 +29,6 @@ export function buildVerification(
         ]
       : [],
     nextStep,
+    coverageSummary: options.coverageSummary,
   };
 }

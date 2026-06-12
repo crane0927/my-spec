@@ -13,7 +13,7 @@ export async function runReport(root: string, changeName: string) {
     await readTextFile(getChangeVerificationFilePath(root, changeName, "evidence.json")),
   );
 
-  const reportMd = buildReportMarkdown(changeName, verification.status);
+  const reportMd = buildReportMarkdown(changeName, verification);
   const reportJson = buildReportJson(changeName, meta.mode, verification, evidence);
 
   await writeTextFile(getChangeReportPath(root, changeName, "report.md"), reportMd);

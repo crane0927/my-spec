@@ -7,11 +7,19 @@ export const traceabilityRequirementSchema = z.object({
   status: z.string().min(1).optional(),
 });
 
+export const coverageSummarySchema = z.object({
+  totalRequirements: z.number().int().nonnegative(),
+  fullyCovered: z.number().int().nonnegative(),
+  partiallyCovered: z.number().int().nonnegative(),
+  uncovered: z.number().int().nonnegative(),
+});
+
 export const traceabilitySchema = z.object({
   requirements: z.array(traceabilityRequirementSchema),
-  summary: z.record(z.string(), z.unknown()).optional(),
+  summary: coverageSummarySchema.optional(),
   gaps: z.array(z.unknown()).optional(),
 });
 
 export type TraceabilityRequirement = z.infer<typeof traceabilityRequirementSchema>;
+export type CoverageSummary = z.infer<typeof coverageSummarySchema>;
 export type Traceability = z.infer<typeof traceabilitySchema>;

@@ -27,9 +27,24 @@ export function checkTraceability(data: TraceabilityData) {
     }
   }
 
+  const totalRequirements = data.requirements.length;
+  const fullyCovered = data.requirements.filter(
+    (requirement) => requirement.tasks.length > 0 && requirement.tests.length > 0,
+  ).length;
+  const uncovered = data.requirements.filter(
+    (requirement) => requirement.tasks.length === 0 && requirement.tests.length === 0,
+  ).length;
+  const partiallyCovered = totalRequirements - fullyCovered - uncovered;
+
   return {
     pass: issues.length === 0,
     issues,
     gaps,
+    summary: {
+      totalRequirements,
+      fullyCovered,
+      partiallyCovered,
+      uncovered,
+    },
   };
 }
