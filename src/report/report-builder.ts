@@ -1,5 +1,11 @@
 type ReportVerification = {
   status: string;
+  issues?: Array<{
+    category: string;
+    source: string;
+    title: string;
+    recommendedAction: string;
+  }>;
   coverageSummary?: {
     totalRequirements: number;
     fullyCovered: number;
@@ -20,6 +26,18 @@ export function buildReportMarkdown(changeName: string, verification: ReportVeri
 - uncovered: ${coverageSummary.uncovered}
 `
     : "";
+  const issuesSection =
+    verification.issues && verification.issues.length > 0
+      ? `
+## Issues
+
+${verification.issues
+  .map(
+    (issue) =>
+      `- title: ${issue.title}\n- category: ${issue.category}\n- source: ${issue.source}\n- recommendedAction: ${issue.recommendedAction}`,
+  )
+  .join("\n")}\n`
+      : "";
 
   return `# Report
 
@@ -30,7 +48,7 @@ export function buildReportMarkdown(changeName: string, verification: ReportVeri
 ## Verification
 
 - status: ${verification.status}
-${coverageSection}`;
+${coverageSection}${issuesSection}`;
 }
 
 export function buildReportJson(

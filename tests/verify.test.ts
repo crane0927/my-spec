@@ -44,6 +44,8 @@ describe("myspec verify", () => {
 
     expect(verification.status).toBe("failed");
     expect(verification.nextStep).toBe("返回 apply 修复");
+    expect(verification.issues[0].source).toBe("checks");
+    expect(verification.issues[0].recommendedAction).toBe("fix-now");
   });
 
   it("supports manual-check and risk-acceptance evidence items", () => {

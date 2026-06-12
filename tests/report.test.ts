@@ -61,7 +61,16 @@ checks:
       gates: {
         testExecution: "passed",
       },
-      issues: [],
+      issues: [
+        {
+          level: 1,
+          category: "risk-acceptance",
+          source: "evidence",
+          title: "Accepted risks recorded",
+          suggestion: "在报告中明确记录已接受风险及后续处理计划。",
+          recommendedAction: "document-risk",
+        },
+      ],
       coverageSummary: {
         totalRequirements: 2,
         fullyCovered: 1,
@@ -84,6 +93,8 @@ checks:
 
     expect(report).toContain("# Report");
     expect(report).toContain("fullyCovered: 1");
+    expect(report).toContain("source: evidence");
+    expect(report).toContain("recommendedAction: document-risk");
     expect(reportJson).toContain('"status": "reported"');
     expect(reportJson).toContain('"coverageSummary"');
   });

@@ -22,6 +22,7 @@ export async function runVerify(root: string, changeName: string) {
   const verification = buildVerification(changeName, checks, {
     coverageSummary: traceabilityResult.summary,
     evidenceItems: evidence.items,
+    traceabilityGaps: traceabilityResult.gaps,
   });
 
   const verificationDir = getChangeVerificationDir(root, changeName);
