@@ -11,3 +11,7 @@ export async function writeTextFile(path: string, content: string): Promise<void
 export async function readTextFile(path: string): Promise<string> {
   return readFile(path, "utf8");
 }
+
+export async function writeJsonFile(path: string, value: unknown): Promise<void> {
+  await writeTextFile(path, JSON.stringify(value, null, 2));
+}

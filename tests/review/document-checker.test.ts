@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { checkDocuments } from "../../src/review/document-checker.js";
 import { reviewResultSchema } from "../../src/schemas/review.js";
 
 describe("reviewResultSchema", () => {
@@ -17,5 +18,16 @@ describe("reviewResultSchema", () => {
     });
 
     expect(result.overall).toBe(88);
+  });
+});
+
+describe("checkDocuments", () => {
+  it("flags missing documents for standard mode", async () => {
+    const result = await checkDocuments({
+      mode: "standard",
+      files: new Map([["proposal.md", "# Proposal\n\n## Goals\n\n## Recommended Workflow Mode\n"]]),
+    });
+
+    expect(result.issues.some((issue) => issue.title.includes("Missing document"))).toBe(true);
   });
 });

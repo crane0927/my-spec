@@ -1,4 +1,6 @@
 import { join } from "node:path";
+import { readdir } from "node:fs/promises";
+import { readTextFile } from "./fs.js";
 
 export const MYSPEC_DIR = ".myspec";
 export const CHANGES_DIR = "changes";
@@ -17,4 +19,16 @@ export function getChangeDir(root: string, changeName: string): string {
 
 export function getChangeFilePath(root: string, changeName: string, fileName: string): string {
   return join(getChangeDir(root, changeName), fileName);
+}
+
+export async function readChangeFile(
+  root: string,
+  changeName: string,
+  fileName: string,
+): Promise<string> {
+  return readTextFile(getChangeFilePath(root, changeName, fileName));
+}
+
+export async function listChangeFiles(root: string, changeName: string): Promise<string[]> {
+  return readdir(getChangeDir(root, changeName));
 }
