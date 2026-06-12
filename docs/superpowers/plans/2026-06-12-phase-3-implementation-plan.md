@@ -281,7 +281,7 @@ checks:
 Run: `npm test -- tests/verify.test.ts`
 Expected: PASS，Phase 3 所需状态和 checks 配置可被 schema 接受
 
-- [ ] **Step 9: 提交本任务**
+- [x] **Step 9: 提交本任务**
 
 ```bash
 git add src/schemas/meta.ts src/schemas/config.ts src/schemas/checks.ts src/schemas/verification.ts src/schemas/evidence.ts src/schemas/report.ts src/templates/defaults.ts tests/verify.test.ts
@@ -414,7 +414,7 @@ export async function runApply(root: string, changeName: string) {
 Run: `npm test -- tests/apply.test.ts`
 Expected: PASS，apply 在 review 未完成时失败，在上下文完整时能装配成功
 
-- [ ] **Step 8: 提交本任务**
+- [x] **Step 8: 提交本任务**
 
 ```bash
 git add src/apply/context.ts src/apply/gate.ts src/commands/apply.ts src/core/change.ts tests/apply.test.ts
@@ -516,7 +516,7 @@ cli.command("apply <change>", "Prepare apply context").action(async (change) => 
 Run: `npm test -- tests/apply.test.ts`
 Expected: PASS，apply 会把 `meta.status` 更新为 `applying`
 
-- [ ] **Step 8: 提交本任务**
+- [x] **Step 8: 提交本任务**
 
 ```bash
 git add src/apply/status-updater.ts src/commands/apply.ts src/cli.ts src/core/output.ts tests/apply.test.ts
@@ -608,7 +608,7 @@ export async function runChecks(root: string) {
 Run: `npm test -- tests/core/executor.test.ts tests/verify.test.ts`
 Expected: PASS，执行器能返回 exit code / stdout / stderr，checks runner 能消费配置
 
-- [ ] **Step 6: 提交本任务**
+- [x] **Step 6: 提交本任务**
 
 ```bash
 git add src/core/executor.ts src/verify/checks-runner.ts tests/core/executor.test.ts tests/verify.test.ts
@@ -763,7 +763,7 @@ export async function runVerify(root: string, changeName: string) {
 Run: `npm test -- tests/verify.test.ts`
 Expected: PASS，verify 会写出 `checks.json`、`verification.json`、`evidence.json`
 
-- [ ] **Step 8: 提交本任务**
+- [x] **Step 8: 提交本任务**
 
 ```bash
 git add src/verify/verification-builder.ts src/verify/evidence-builder.ts src/commands/verify.ts src/core/change.ts tests/verify.test.ts
@@ -886,7 +886,7 @@ export function formatReportSummary(summary: { change: string; status: string })
 Run: `npm test -- tests/report.test.ts`
 Expected: PASS，`report.md` 和 `report.json` 被写出
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add src/report/report-builder.ts src/commands/report.ts src/core/output.ts tests/report.test.ts
@@ -962,7 +962,7 @@ Expected: PASS
 Run: `npm run build`
 Expected: PASS
 
-- [ ] **Step 7: 提交本任务**
+- [x] **Step 7: 提交本任务**
 
 ```bash
 git add src/cli.ts src/commands/status.ts src/core/output.ts tests/status.test.ts
