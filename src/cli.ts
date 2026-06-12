@@ -1,5 +1,6 @@
 import { cac } from "cac";
 import { runClarify } from "./commands/clarify.js";
+import { runDraft } from "./commands/draft.js";
 import { runInit } from "./commands/init.js";
 import { runPropose } from "./commands/propose.js";
 
@@ -22,6 +23,10 @@ cli
   .action(async (change, options) => {
     await runClarify(process.cwd(), change, Boolean(options.skip));
   });
+
+cli.command("draft <change>", "Generate change artifacts").action(async (change) => {
+  await runDraft(process.cwd(), change);
+});
 
 cli.help();
 cli.version("0.1.0");
