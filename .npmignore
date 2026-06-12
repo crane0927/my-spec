@@ -1,0 +1,8 @@
+src
+tests
+docs/examples
+docs/superpowers
+tsconfig.json
+vitest.config.*
+eslint.config.js
+*.tsbuildinfo
