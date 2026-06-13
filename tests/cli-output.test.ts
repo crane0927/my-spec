@@ -26,7 +26,7 @@ describe("enhanced cli output", () => {
 
 describe("published cli entry", () => {
   it("shows command list from the built cli entry", () => {
-    const cliPath = resolve(process.cwd(), "dist/src/cli.js");
+    const cliPath = resolve(process.cwd(), "dist/cli.js");
     const output = execFileSync("node", [cliPath, "--help"], {
       encoding: "utf8",
     });
