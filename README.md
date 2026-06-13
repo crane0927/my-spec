@@ -119,3 +119,23 @@ node dist/cli.js status quick-fix
 - `myspec list`
 
 当前仓库里可直接使用 `node dist/cli.js ...` 代替全局安装后的 `myspec ...`。
+
+## Release
+
+发布前先执行：
+
+```bash
+npm run release:check
+```
+
+本仓库通过 `.npmrc` 固定：
+
+- 使用项目内 `.npm-local-cache`
+- 使用官方 npm registry：`https://registry.npmjs.org/`
+
+首次发布前还需要人工执行：
+
+```bash
+npm login
+npm publish
+```
