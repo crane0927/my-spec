@@ -4,7 +4,24 @@
 
 `myspec` 用一组结构化文档、review 门禁、验证证据和状态流转，把一次变更从想法推进到可 review、可 apply、可 verify、可 report 的交付过程。
 
+## Install
+
+快速试用：
+
+```bash
+npx myspec --help
+```
+
+全局安装：
+
+```bash
+npm install -g myspec
+myspec --help
+```
+
 ## Quick Start
+
+如果你是从当前源码仓库本地开发或调试 `myspec`，使用下面这条路径：
 
 1. 安装依赖
 
