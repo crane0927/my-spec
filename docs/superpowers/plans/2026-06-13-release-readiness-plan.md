@@ -1,8 +1,8 @@
-# Myspec Release Readiness Implementation Plan
+# my-spec Release Readiness Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 修复 `myspec` 当前的 npm 发布阻塞项，把仓库整理到“可稳定打包、可正确执行 CLI、可重复进行发布前检查”的状态。
+**Goal:** 修复 `my-spec` 当前的 npm 发布阻塞项，把仓库整理到“可稳定打包、可正确执行 CLI、可重复进行发布前检查”的状态。
 
 **Architecture:** 这次改动只做发布面上的外科手术式修复，不调整 CLI 的业务行为。核心思路是把 npm 可执行入口对齐到真实构建产物、让构建输出只包含运行时代码、把 npm cache 和 registry 约束收敛到仓库级配置，然后补一轮发布前验证与发布文档。
 

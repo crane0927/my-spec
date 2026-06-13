@@ -1,8 +1,8 @@
-# myspec Phase 0-1 Implementation Plan
+# my-spec Phase 0-1 Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 建立 `myspec` 的 CLI 工程骨架，并打通 `init`、`propose`、`clarify`、`draft`、`status`、`list` 的最小可用流程。
+**Goal:** 建立 `my-spec` 的 CLI 工程骨架，并打通 `init`、`propose`、`clarify`、`draft`、`status`、`list` 的最小可用流程。
 
 **Architecture:** 采用 TypeScript + Node.js 的单包 CLI 结构。Phase 0 先沉淀通用基础设施、配置 schema、模板资产和命令注册；Phase 1 在此基础上实现 change 生命周期和文档骨架生成，保证 `.myspec/` 与 `changes/` 目录流转可落地。
 

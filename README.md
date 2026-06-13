@@ -1,8 +1,8 @@
-# myspec
+# my-spec
 
 面向个人开发流程的 SDD CLI + AI Coding Assistant 工作流框架。
 
-`myspec` 用一组结构化文档、review 门禁、验证证据和状态流转，把一次变更从想法推进到可 review、可 apply、可 verify、可 report 的交付过程。
+`my-spec` 用一组结构化文档、review 门禁、验证证据和状态流转，把一次变更从想法推进到可 review、可 apply、可 verify、可 report 的交付过程。
 
 ## Install
 
@@ -21,7 +21,7 @@ myspec --help
 
 ## Quick Start
 
-如果你是从当前源码仓库本地开发或调试 `myspec`，使用下面这条路径：
+如果你是从当前源码仓库本地开发或调试 `my-spec`，使用下面这条路径：
 
 1. 安装依赖
 
@@ -113,7 +113,7 @@ node dist/cli.js status quick-fix
 - 标准模式示例：`docs/examples/standard-change/`
 - 轻量模式示例：`docs/examples/lite-change/`
 
-如果你想先理解目录结构，再开始在自己的项目里使用 `myspec`，建议先对照这两套示例查看 `proposal -> requirements -> tasks -> test-case -> traceability` 的最小骨架。
+如果你想先理解目录结构，再开始在自己的项目里使用 `my-spec`，建议先对照这两套示例查看 `proposal -> requirements -> tasks -> test-case -> traceability` 的最小骨架。
 
 ## 配置与排障
 

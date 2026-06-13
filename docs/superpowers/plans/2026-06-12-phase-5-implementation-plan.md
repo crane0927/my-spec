@@ -1,8 +1,8 @@
-# myspec Phase 5 Implementation Plan
+# my-spec Phase 5 Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 完成 `myspec` 的交付收尾工作，使新用户可以按文档完成端到端演练，理解跨技术栈配置方式，并具备基础发布与对外试用条件。
+**Goal:** 完成 `my-spec` 的交付收尾工作，使新用户可以按文档完成端到端演练，理解跨技术栈配置方式，并具备基础发布与对外试用条件。
 
 **Architecture:** Phase 5 不再扩展核心流程，而是围绕已实现的 `init / propose / draft / review / apply / verify / report / status` 主链做体验和交付层补强。优先统一终端输出与错误表达，然后补齐 README、示例 change、跨语言配置文档，最后完善 package 元数据和发布脚本。
 

@@ -1,8 +1,8 @@
-# myspec Phase 4 Implementation Plan
+# my-spec Phase 4 Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 补齐 `myspec v2.2` 在 MVP 之后最关键的增强能力，包括 `standard/lite` 双模式分流、显式回退流转、coverage summary、增强 evidence schema，以及更完整的 verify issue/gate 承载。
+**Goal:** 补齐 `my-spec v2.2` 在 MVP 之后最关键的增强能力，包括 `standard/lite` 双模式分流、显式回退流转、coverage summary、增强 evidence schema，以及更完整的 verify issue/gate 承载。
 
 **Architecture:** Phase 4 不重写 Phase 2-3 已有主链，而是在当前 `review -> apply -> verify -> report -> status` 流程上增量增强。优先把模式分流和状态回退接入现有命令，再扩展 traceability / evidence / verification schema，最后将增强结果反映到 report 和 status 中。
 

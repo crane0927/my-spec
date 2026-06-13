@@ -1,6 +1,6 @@
 # Python 项目 checks 配置
 
-`myspec` 不限制技术栈。对于 Python 项目，可以把 `verify` 阶段的检查命令接到 `.myspec/config.yaml` 的 `checks.commands` 下。
+`my-spec` 不限制技术栈。对于 Python 项目，可以把 `verify` 阶段的检查命令接到 `.myspec/config.yaml` 的 `checks.commands` 下。
 
 ## 推荐起步配置
 
