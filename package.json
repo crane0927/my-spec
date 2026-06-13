@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "myspec": "./dist/cli.js"
+    "myspec": "./dist/src/cli.js"
   },
   "files": [
     "dist",

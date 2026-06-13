@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { cac } from "cac";
 import { runApply } from "./commands/apply.js";
 import { runClarify } from "./commands/clarify.js";
